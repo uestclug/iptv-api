@@ -12,17 +12,39 @@ function delLive(live_id) {
   db.remove((r) => r.id === live_id);
 }
 
+function getLive(live_id) {
+  const results = db.get((r) => r.id === live_id);
+  if (results.length) return results[0];
+  else return null;
+}
+
+function regenLive(live_id) {
+  const result = getLive(live_id);
+  if (result) {
+    result.token = uuid.v4();
+    db.update((r) => r.id === live_id, result);
+  }
+}
+
+function setLiveDisabled(live_id, state) {
+  db.update((r) => r.id === live_id, { disabled: state });
+}
+
+function setLiveVisible(live_id, state) {
+  db.update((r) => r.id === live_id, { visible: state });
+}
+
 function authLive(live_id, live_token) {
   return !!db.get((r) => r.id === live_id && r.token === live_token).length;
 }
 
 function addLive(live_title, live_id = null) {
-  if (!live_id) live_id = uuid.v5();
-  if (!db.get((r) => r.id === live_id).length) return null;
+  if (!live_id) live_id = uuid.v4();
+  if (db.get((r) => r.id === live_id).length) return null;
   else {
     const live = {
       id: live_id,
-      token: uuid.v5(),
+      token: uuid.v4(),
       title: live_title,
       enabled: true,
       visible: true,
@@ -55,6 +77,9 @@ function exportList(list) {
 module.exports = {
   addLive,
   delLive,
+  regenLive,
+  setLiveDisabled,
+  setLiveVisible,
   authLive,
   fetchList,
   exportList,

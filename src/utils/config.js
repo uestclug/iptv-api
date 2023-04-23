@@ -2,7 +2,7 @@ require("dotenv").config();
 
 let config = {
   PORT: process.env.PORT || 8080,
-  HOST: process.env.HOST || 127.0.0.1,
+  HOST: process.env.HOST || '127.0.0.1',
   FRONT_URL: process.env.FRONT_URL || "https://iptv.uestc.edu.cn/",
   SSO_URL: process.env.SSO_URL || "https://sso.uestclug.org/",
 };

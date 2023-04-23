@@ -25,6 +25,6 @@ app.get("/test", (req, res) => {
   res.send("Hello, " + req.auth);
 });
 
-app.listen(config.PORT, () => {
+app.listen(config.PORT, config.HOST, () => {
   console.log(`IPTV API listening on ${config.PORT}...`);
 });

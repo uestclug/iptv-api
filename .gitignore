@@ -1,0 +1,5 @@
+.env.local
+yarn.lock
+data/db.json
+
+node_modules

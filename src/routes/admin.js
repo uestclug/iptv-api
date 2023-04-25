@@ -28,6 +28,26 @@ router.post("/live/refresh", (req, res) => {
   res.json({});
 });
 
+router.post("/live/enabled", (req, res) => {
+  if (!req.body.id) res.status(404);
+  if (!"state" in req.body) res.status(404);
+  else {
+    data.setLiveDisabled(req.body.id, req.body.state);
+    res.status(200);
+  }
+  res.json({});
+});
+
+router.post("/live/visible", (req, res) => {
+  if (!req.body.id) res.status(404);
+  if (!"state" in req.body) res.status(404);
+  else {
+    data.setLiveVisible(req.body.id, req.body.state);
+    res.status(200);
+  }
+  res.json({});
+});
+
 router.delete("/live", (req, res) => {
   if (!req.body.id) res.status(404);
   else {
